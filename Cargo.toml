@@ -1,0 +1,21 @@
+[package]
+authors = ["JmPotato <ghzpotato@gmail.com>"]
+edition = "2018"
+name = "potatodb"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+async-trait = "0.1"
+bytes = "1"
+thiserror = "1.0"
+tokio = {version = "1", features = ["full"]}
+
+[dev-dependencies]
+criterion = "0.3"
+rand = "0.8"
+
+[[bench]]
+harness = false
+name = "dummy_memory_storage_benchmark"
