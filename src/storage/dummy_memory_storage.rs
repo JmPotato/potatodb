@@ -1,8 +1,8 @@
 use std::collections::HashMap;
+use std::sync::RwLock;
 
 use async_trait::async_trait;
 use bytes::Bytes;
-use tokio::sync::RwLock;
 
 use crate::error::Result;
 use crate::storage::Storage;
@@ -25,7 +25,7 @@ impl Default for DummyMemoryStorage {
 #[async_trait]
 impl Storage for DummyMemoryStorage {
     async fn put(&self, request: Request) -> Result<()> {
-        let mut writer = self.0.write().await;
+        let mut writer = self.0.write().unwrap();
         for entry in request.entries.into_iter() {
             writer.insert(entry.clone().key, entry);
         }
@@ -33,6 +33,6 @@ impl Storage for DummyMemoryStorage {
     }
 
     async fn get(&self, key: &Bytes) -> Result<Option<Entry>> {
-        Ok(self.0.read().await.get(key).cloned())
+        Ok(self.0.read().unwrap().get(key).cloned())
     }
 }

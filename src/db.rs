@@ -42,7 +42,7 @@ mod test {
     };
 
     #[tokio::test]
-    async fn test_basic_potato_db_with_dummy_memory_storage() {
+    async fn test_basic_db_with_dummy_memory_storage() {
         let storage = DummyMemoryStorage::default();
         let potato = Potato::new(storage);
 
